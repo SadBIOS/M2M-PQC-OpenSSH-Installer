@@ -36,11 +36,19 @@ DEPS=(
     ca-certificates
     rsync
     screen
+    curl
 )
 
 
 function conn_stat() {
     ping -c 1 -W 2 1.1.1.1 &>/dev/null || ping -c 1 -W 2 8.8.8.8 &>/dev/null
+}
+
+function fetch_src() {
+    wget --no-http-keep-alive -P "$SCRIPT_ROOT" -O "$OPENSSL_SOURCE_CODE" "$OPENSSL_URL"
+    data_integrity calc "$OPENSSL_SOURCE_CODE"
+    wget -P "$SCRIPT_ROOT" -O "$OPENSSH_SOURCE_CODE" "$OPENSSH_URL"
+    data_integrity calc "$OPENSSH_SOURCE_CODE"
 }
 
 function online() {
@@ -52,10 +60,6 @@ function online() {
     sudo apt update && sudo apt install -y "${DEPS[@]}"
 
     : > "$HASHLIB"
-    wget --no-http-keep-alive -P "$SCRIPT_ROOT" -O "$OPENSSL_SOURCE_CODE" "$OPENSSL_URL"
-    data_integrity calc "$OPENSSL_SOURCE_CODE"
-    wget -P "$SCRIPT_ROOT" -O "$OPENSSH_SOURCE_CODE" "$OPENSSH_URL"
-    data_integrity calc "$OPENSSH_SOURCE_CODE"
 }
 
 function makepkg_cache() {
@@ -76,10 +80,6 @@ function makepkg_cache() {
         find $SCRIPT_ROOT -maxdepth 1 -type f -name 'depsys-custpkg-*.tar.gz' -exec mv -v {} "$PKG_ARCH" \;
 
         : > "$HASHLIB"
-        wget --no-http-keep-alive -P "$SCRIPT_ROOT" -O "$OPENSSL_SOURCE_CODE" "$OPENSSL_URL"
-        data_integrity calc "$OPENSSL_SOURCE_CODE"
-        wget -P "$SCRIPT_ROOT" -O "$OPENSSH_SOURCE_CODE" "$OPENSSH_URL"
-        data_integrity calc "$OPENSSH_SOURCE_CODE"
     fi
 }
 
@@ -250,6 +250,8 @@ while [[ $# -gt 0 ]]; do
 
         --fetch-dep-packs)
             makepkg_cache
+            offline
+            fetch_src
             exit 0
         ;;
 
