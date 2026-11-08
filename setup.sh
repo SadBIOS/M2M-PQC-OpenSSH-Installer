@@ -16,7 +16,7 @@ PKG_ARCH="$SCRIPT_ROOT/end2end-PQC_dependencies.tar.gz"
 
 HASHLIB="$SCRIPT_ROOT/hashes.txt"
 
-OPENSSL_URL="https://github.com/openssl/openssl/releases/download/openssl-4.1.0/openssl-4.1.0.tar.gz"
+OPENSSL_URL="https://www.openssl.org/source/openssl-4.1.0.tar.gz"
 OPENSSH_URL="https://cloudflare.cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-10.6p2.tar.gz"
 
 OPENSSL_SOURCE_CODE=$(basename "$OPENSSL_URL")
@@ -45,7 +45,7 @@ function conn_stat() {
 }
 
 function fetch_src() {
-    curl -L -A "Mozilla/5.0" -o "$SCRIPT_ROOT/$OPENSSL_SOURCE_CODE" "$OPENSSL_URL"
+    wget -P "$SCRIPT_ROOT" -O "$OPENSSL_SOURCE_CODE" "$OPENSSL_URL"
     data_integrity calc "$OPENSSL_SOURCE_CODE"
     wget -P "$SCRIPT_ROOT" -O "$OPENSSH_SOURCE_CODE" "$OPENSSH_URL"
     data_integrity calc "$OPENSSH_SOURCE_CODE"
@@ -250,7 +250,6 @@ while [[ $# -gt 0 ]]; do
 
         --fetch-dep-packs)
             makepkg_cache
-            offline
             fetch_src
             exit 0
         ;;
