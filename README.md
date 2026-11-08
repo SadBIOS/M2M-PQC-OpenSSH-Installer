@@ -69,6 +69,9 @@ Finally install the packages (similarly as before).
 
 This method is recommended on interned dependent machines. Yes, if you want you can read the script and prepare the build system for transferring into airgapped nodes.
 
+> [!NOTE]
+> The latest version is update in the build script only. Find the appropriate urls from [setup.sh](https://github.com/SadBIOS/M2M-PQC-OpenSSH-Installer/blob/main/setup.sh) and make changes as necessary.
+
 <br>
 
 Install dependencies.
