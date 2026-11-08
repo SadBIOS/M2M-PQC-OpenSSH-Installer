@@ -45,7 +45,7 @@ function conn_stat() {
 }
 
 function fetch_src() {
-    wget --no-http-keep-alive -P "$SCRIPT_ROOT" -O "$OPENSSL_SOURCE_CODE" "$OPENSSL_URL"
+    curl -L -A "Mozilla/5.0" -o "$SCRIPT_ROOT/$OPENSSL_SOURCE_CODE" "$OPENSSL_URL"
     data_integrity calc "$OPENSSL_SOURCE_CODE"
     wget -P "$SCRIPT_ROOT" -O "$OPENSSH_SOURCE_CODE" "$OPENSSH_URL"
     data_integrity calc "$OPENSSH_SOURCE_CODE"
