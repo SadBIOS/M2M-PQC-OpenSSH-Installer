@@ -17,7 +17,7 @@ PKG_ARCH="$SCRIPT_ROOT/end2end-PQC_dependencies.tar.gz"
 HASHLIB="$SCRIPT_ROOT/hashes.txt"
 
 OPENSSL_URL="https://github.com/openssl/openssl/releases/download/openssl-4.1.0/openssl-4.1.0.tar.gz"
-OPENSSH_URL="https://cloudflare.cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-10.6p1.tar.gz"
+OPENSSH_URL="https://cloudflare.cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-10.6p2.tar.gz"
 
 OPENSSL_SOURCE_CODE=$(basename "$OPENSSL_URL")
 OPENSSH_SOURCE_CODE=$(basename "$OPENSSH_URL")
